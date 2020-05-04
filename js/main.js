@@ -14,6 +14,7 @@ $(document).ready(function () {
   $(submitBtn).click(function () {
     //ottengo il valore dalla input
     var searchMovie = input.val().trim().toLowerCase();
+    input.val('');
     // chiamata Ajax
     $.ajax({
       url: movieApi,
@@ -33,17 +34,9 @@ $(document).ready(function () {
             original_language: thisMovie.original_language,
             vote_average: thisMovie.vote_average
           }
-
-          console.log(context);
-          
-          
+          var html = template(context);
+          $('.movie-list').append(html);
         }
-        
-        
-
-        
-
-        
       },
       error: function(){
         console.error('Errore chiamata Ajax');
