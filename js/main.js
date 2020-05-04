@@ -13,6 +13,7 @@ $(document).ready(function () {
 
   $(submitBtn).click(function () {
     //ottengo il valore dalla input
+    movieList.children().remove();
     var searchMovie = input.val().trim().toLowerCase();
     input.val('');
     // chiamata Ajax
