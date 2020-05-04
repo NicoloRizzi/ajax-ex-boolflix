@@ -24,7 +24,25 @@ $(document).ready(function () {
         language: 'it-IT'
       },
       success: function (res) {
-        console.log(res.results);
+        var movies = res.results;
+        for(var i = 0; i < movies.length; i++) {
+          var thisMovie = movies[i];
+          var context = {
+            original_title: thisMovie.original_title,
+            title: thisMovie.title,
+            original_language: thisMovie.original_language,
+            vote_average: thisMovie.vote_average
+          }
+
+          console.log(context);
+          
+          
+        }
+        
+        
+
+        
+
         
       },
       error: function(){
