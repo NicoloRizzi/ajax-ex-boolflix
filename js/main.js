@@ -44,7 +44,7 @@ function getMovies (template,input,movieList,movieApi) {
     success: function (res) {
       var movies = res.results;
       for (var i = 0; i < movies.length; i++) {
-        var thisMovie = movies[i];
+        var thisMovie = movies[i];      
         var context = {
           original_title: thisMovie.original_title,
           title: thisMovie.title,
@@ -52,7 +52,7 @@ function getMovies (template,input,movieList,movieApi) {
           vote_average: thisMovie.vote_average
         }
         var html = template(context);
-        $('.movie-list').append(html);
+        movieList.append(html);
       }
     },
     error: function () {
