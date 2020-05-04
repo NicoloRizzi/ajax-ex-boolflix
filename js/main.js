@@ -14,6 +14,12 @@ $(document).ready(function () {
   $(submitBtn).click(function () {
     getMovies(template,input,movieList,movieApi)
   }); // ----- END CLICK SUBMIT
+  
+  input.keyup(function (e) {
+    if (e.which == 13) {
+      getMovies(template, input, movieList, movieApi)
+    }
+  });
 }); // ----- END DOC READY
 
 /**
@@ -53,4 +59,4 @@ function getMovies (template,input,movieList,movieApi) {
       console.error('Errore chiamata Ajax');
     }
   });
-}
+} // END FUNCTION
