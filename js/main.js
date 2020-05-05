@@ -45,7 +45,7 @@ function getMovies(template,querySearch,movieList) {
           var context = {
             original_title: thisMovie.original_title,
             title: thisMovie.title,
-            original_language: thisMovie.original_language,
+            original_language: printFlag(thisMovie),
             vote_average: printStar(thisMovie),
             type: 'Film'
           }
@@ -55,6 +55,7 @@ function getMovies(template,querySearch,movieList) {
       },
       error: function () {
         console.error('Errore chiamata Ajax');
+        querySearch.focus();
       }
     });
   } else {
@@ -64,8 +65,8 @@ function getMovies(template,querySearch,movieList) {
   }
 } // END FUNCTION
 
+// FUNZIONE STAMPA STELLE
 function printStar (element){
-
   var rating = Math.round(element.vote_average / 2);
   var stars = "";
   for (var i = 1; i <= 5; i++) {
@@ -76,4 +77,15 @@ function printStar (element){
     }
   }
   return stars;
+}
+
+// FUNZIONE STAMPA BANDIERA
+function printFlag (element) {
+  var language = element.original_language;
+  if (language=="en"){
+    var flag = '<img src="img/en.svg">';
+  } else if (language =="it") {
+    var flag = '<img src="img/it.svg">';
+  }
+  return flag
 }
