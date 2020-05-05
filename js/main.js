@@ -58,6 +58,35 @@ function getMovies(template,querySearch,movieList) {
         querySearch.focus();
       }
     });
+    // tv series
+    $.ajax({
+      type: "GET",
+      url: "https://api.themoviedb.org/3/search/tv",
+      data: {
+        api_key: 'e98fb56b8c3a7d7884b98e6cff128fde',
+        query: searchMovie,
+        language: 'it-IT'
+      },
+      success: function (data) {
+        var series = data.results;
+        for (var i = 0; i < series.length; i++){
+          var thisSerie = series[i];
+          var context2 = {
+            original_title: thisSerie.original_name,
+            title: thisSerie.name,
+            vote_average: printStar(thisSerie),
+            original_language: printFlag(thisSerie),
+            type: 'SerieTV'
+          }
+          var html = template(context2);
+          movieList.append(html);
+        }
+        
+      },
+      error: function (){
+
+      }
+    });
   } else {
     alert('Prego, inserire un valore nella ricerca');
     //pulizia del campo
@@ -82,10 +111,12 @@ function printStar (element){
 // FUNZIONE STAMPA BANDIERA
 function printFlag (element) {
   var language = element.original_language;
-  if (language=="en"){
-    var flag = '<img src="img/en.svg">';
-  } else if (language =="it") {
-    var flag = '<img src="img/it.svg">';
+  if (language === "en"){
+    var flag = '<img class="flag" src="img/en.svg">';
+  } else if (language === "it") {
+    var flag = '<img class="flag" src="img/it.svg">';
+  } else {
+    flag = language;
   }
-  return flag
+  return flag;
 }
