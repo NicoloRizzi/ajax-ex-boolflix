@@ -58,7 +58,8 @@ function getResults(querySearch, movieList, template , API ) {
               title: thisResult.title,
               original_language: printFlag(thisResult),
               vote_average: printStar(thisResult),
-              type: API.type
+              type: API.type,
+              poster_path: generateImgUrl(thisResult)
             }
           } else if (API.type == "Serie Tv") {
             var context = {
@@ -66,7 +67,8 @@ function getResults(querySearch, movieList, template , API ) {
               title: thisResult.name,
               original_language: printFlag(thisResult),
               vote_average: printStar(thisResult),
-              type: API.type
+              type: API.type,
+              poster_path: generateImgUrl(thisResult)
             }
           }
           var html = template(context);
@@ -204,3 +206,12 @@ function printFlag (element) {
   return flag;
 }
 
+
+/**
+ * FUNZIONE CREA URL
+ */
+function generateImgUrl (API) {
+  var url = " https://image.tmdb.org/t/p/w342";
+  var result = url + API.poster_path;  
+  return result
+}
