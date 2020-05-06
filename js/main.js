@@ -9,7 +9,20 @@ $(document).ready(function () {
   var submitBtn = $('#submit');
   var querySearch = $('#search');
   var movieList = $('.movie-list');
+  var moviesAPI = {
+    url: 'https://api.themoviedb.org/3/search/movie',
+    api_key: 'e98fb56b8c3a7d7884b98e6cff128fde',
+    original_language: 'it-IT',
+    type : 'Film'
+  };
+  var serieAPI = {
+    url: 'https://api.themoviedb.org/3/search/tv',
+    api_key: 'e98fb56b8c3a7d7884b98e6cff128fde',
+    original_language: 'it-IT',
+    type: 'Serie Tv'
+  };
 
+  
   submitBtn.click(function () {
     getMovies(template,querySearch,movieList);
   }); // ----- END CLICK SUBMIT
@@ -22,7 +35,7 @@ $(document).ready(function () {
 }); // ----- END DOC READY
 
 /**
- * FUNCTION
+ * FUNCTION GETMOVIES
  */
 function getMovies(template,querySearch,movieList) {
   var searchMovie = querySearch.val().trim().toLowerCase();
@@ -39,7 +52,7 @@ function getMovies(template,querySearch,movieList) {
       success: function (data) {
         var movies = data.results;
         // rimuovo contenuto precedente
-        movieList.children().remove(); 
+        reset(movieList);
         for (var i = 0; i < movies.length; i++) {
           var thisMovie = movies[i];          
           var context = {
@@ -55,10 +68,12 @@ function getMovies(template,querySearch,movieList) {
       },
       error: function () {
         console.error('Errore chiamata Ajax');
-        querySearch.focus();
       }
-    });
-    // tv series
+    }); // end ajax call
+
+    /**
+     * AJAX CALL SERIE TV
+     */
     $.ajax({
       type: "GET",
       url: "https://api.themoviedb.org/3/search/tv",
@@ -84,17 +99,31 @@ function getMovies(template,querySearch,movieList) {
         
       },
       error: function (){
-
+        console.error('Errore chiamata Ajax');
       }
     });
+    // else condition
   } else {
     alert('Prego, inserire un valore nella ricerca');
-    //pulizia del campo
-    querySearch.val('');
-  }
+    querySearch.focus();
+  } // end IF
 } // END FUNCTION
 
-// FUNZIONE STAMPA STELLE
+
+
+/**
+ * FUNZIONE CLEAN UP
+ */
+
+function reset (element) {
+  element.html('');
+}
+
+
+/**
+ * 
+ * FUNZIONE STAMPA STELLE
+ */
 function printStar (element){
   var rating = Math.round(element.vote_average / 2);
   var stars = "";
@@ -108,7 +137,10 @@ function printStar (element){
   return stars;
 }
 
-// FUNZIONE STAMPA BANDIERA
+/**
+ * 
+ * FUNZIONE STAMPA BANDIERA
+ */
 function printFlag (element) {
   var language = element.original_language;
   if (language === "en"){
@@ -120,3 +152,7 @@ function printFlag (element) {
   }
   return flag;
 }
+
+/**
+ * FUNCTION CALLAJAX
+ */
