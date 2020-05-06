@@ -134,9 +134,16 @@ function printFlag (element) {
  * FUNZIONE CREA URL IMAGE
  */
 function generateImgUrl (API) {
-  var url = " https://image.tmdb.org/t/p/w342";
-  var result = url + API.poster_path;  
-  return result
+  var thisUrl = API.poster_path;
+  if (thisUrl !== null) {
+    var url = " https://image.tmdb.org/t/p/w342";
+    var result = url + thisUrl;
+    return result
+  } else {
+    var url = 'img/no-poster.png';
+    console.log(url);
+    return url
+  }
 }
 
 /**
