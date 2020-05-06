@@ -23,7 +23,6 @@ $(document).ready(function () {
     getResults(querySearch,movieList,template,moviesAPI);
     getResults(querySearch, movieList,template,serieAPI);
     reset(movieList);
-    //getMoviesTV(template,querySearch,movieList);
   }); // ----- END CLICK SUBMIT
   
   querySearch.keyup(function (e) {
@@ -31,7 +30,6 @@ $(document).ready(function () {
       getResults(querySearch, movieList, template, moviesAPI);
       getResults(querySearch, movieList, template, serieAPI);
       reset(movieList);
-      //getMoviesTV(template,querySearch,movieList);
     }
   });
 }); // ----- END DOC READY
@@ -59,7 +57,8 @@ function getResults(querySearch, movieList, template , API ) {
               original_language: printFlag(thisResult),
               vote_average: printStar(thisResult),
               type: API.type,
-              poster_path: generateImgUrl(thisResult)
+              poster_path: generateImgUrl(thisResult),
+              overview: generateOverview(thisResult)
             }
           } else if (API.type == "Serie Tv") {
             var context = {
@@ -68,7 +67,8 @@ function getResults(querySearch, movieList, template , API ) {
               original_language: printFlag(thisResult),
               vote_average: printStar(thisResult),
               type: API.type,
-              poster_path: generateImgUrl(thisResult)
+              poster_path: generateImgUrl(thisResult),
+              overview: generateOverview(thisResult)
             }
           }
           var html = template(context);
@@ -85,83 +85,6 @@ function getResults(querySearch, movieList, template , API ) {
     querySearch.focus();
   }
 } // end function 
-
-/**
- * FUNCTION GETMOVIES
-
-
-function getMoviesTV(template,querySearch,movieList,moviesAPI, serieAPI) {
-  var searchMovie = querySearch.val().trim().toLowerCase();
-  if(searchMovie !=="") {
-    // chiamata Ajax
-    $.ajax({
-      url: ,
-      type: 'GET',
-      data: {
-        api_key: 'e98fb56b8c3a7d7884b98e6cff128fde',
-        query: searchMovie,
-        language: 'it-IT'
-      },
-      success: function (data) {
-        var movies = data.results;
-        // rimuovo contenuto precedente
-        reset(movieList);
-        for (var i = 0; i < movies.length; i++) {
-          var thisMovie = movies[i];          
-          var context = {
-            original_title: thisMovie.original_title,
-            title: thisMovie.title,
-            original_language: printFlag(thisMovie),
-            vote_average: printStar(thisMovie),
-            type: 'Film'
-          }
-          var html = template(context);
-          movieList.append(html);
-        }
-      },
-      error: function () {
-        console.error('Errore chiamata Ajax');
-      }
-    }); // end ajax call
-
-    /**
-     * AJAX CALL SERIE TV
-     
-    $.ajax({
-      type: "GET",
-      url: "https://api.themoviedb.org/3/search/tv",
-      data: {
-        api_key: 'e98fb56b8c3a7d7884b98e6cff128fde',
-        query: searchMovie,
-        language: 'it-IT'
-      },
-      success: function (data) {
-        var series = data.results;
-        for (var i = 0; i < series.length; i++){
-          var thisSerie = series[i];
-          var context2 = {
-            original_title: thisSerie.original_name,
-            title: thisSerie.name,
-            vote_average: printStar(thisSerie),
-            original_language: printFlag(thisSerie),
-            type: 'SerieTV'
-          }
-          var html = template(context2);
-          movieList.append(html);
-        }
-        
-      },
-      error: function (){
-        console.error('Errore chiamata Ajax');
-      }
-    });
-    // else condition
-  } else {
-    alert('Prego, inserire un valore nella ricerca');
-    querySearch.focus();
-  } // end IF
-} */ // END FUNCTION
-
 
 
 /**
@@ -208,10 +131,19 @@ function printFlag (element) {
 
 
 /**
- * FUNZIONE CREA URL
+ * FUNZIONE CREA URL IMAGE
  */
 function generateImgUrl (API) {
   var url = " https://image.tmdb.org/t/p/w342";
   var result = url + API.poster_path;  
   return result
+}
+
+/**
+ * FUNZIONE GENERA DESCRIZIONE
+ */
+function generateOverview (API) {
+  var overview = API.overview;
+  var res = overview.substr(0, 300);
+  return res
 }

@@ -27,13 +27,14 @@
     </div>
   </div>
   <script id="movie-template" type="text/x-handlebars-template">
-    <img src="{{poster_path}}" alt="">
+    <img src="{{poster_path}}" alt="{{title}}">
     <li>
       <p>Titolo Origianle: {{original_title}}</p>
       <p>Titolo: {{title}}</p>
       <p><span>Lingua Originale: </span><span>{{{original_language}}}</span></p>
       <p><span>Votazione: </span><span>{{{vote_average}}}</span></p>
       <p>Tipo: {{ type }}</p>
+      <p>Descrizione: {{overview}}</p>
     </li>
   </script>
 </body>
