@@ -9,83 +9,110 @@ $(document).ready(function () {
   var submitBtn = $('#submit');
   var querySearch = $('#search');
   var movieList = $('.movie-list');
-  var moviesAPI = {
-    url: 'https://api.themoviedb.org/3/search/movie',
-    type : 'Film'
-  };
-  var serieAPI = {
-    url: 'https://api.themoviedb.org/3/search/tv',
-    type: 'Serie Tv'
-  };
 
-  
+
   submitBtn.click(function () {
-    getResults(querySearch,movieList,template,moviesAPI);
-    getResults(querySearch, movieList,template,serieAPI);
+    getResults(querySearch, movieList, template);
     reset(movieList);
   }); // ----- END CLICK SUBMIT
   
-  querySearch.keyup(function (e) {
+  querySearch.keypress(function (e) {
     if (e.which == 13) {
-      getResults(querySearch, movieList, template, moviesAPI);
-      getResults(querySearch, movieList, template, serieAPI);
+      getResults(querySearch, movieList, template);
       reset(movieList);
     }
   });
 }); // ----- END DOC READY
 
-function getResults(querySearch, movieList, template , API ) {
-  var searchMovie = querySearch.val().trim().toLowerCase();
-  if (searchMovie !== ""){
+
+/**
+ * AJAX API CALL
+*/
+
+function getResults(querySearch, movieList, template) {
+  var query = querySearch.val().trim().toLowerCase();
+  var moviesAPI = {
+    url: 'https://api.themoviedb.org/3/search/movie',
+    type: 'Film'
+  };
+  var serieAPI = {
+    url: 'https://api.themoviedb.org/3/search/tv',
+    type: 'Serie Tv'
+  };
+  if (query !== ""){
     $.ajax({
-      url: API.url,
+      url: moviesAPI.url,
       type: 'GET',
       data: {
         api_key: 'e98fb56b8c3a7d7884b98e6cff128fde',
-        query: searchMovie,
+        query: query,
         language: 'it-IT',
-        type: API.type
+        type: moviesAPI.type
+      },
+      success: function (data) {
+        var result = data.results; 
+        print(result, moviesAPI, movieList, template);
+      },
+      error : function(){
+        console.error('ERROR AJAX CALL');
+      },
+    }),
+    $.ajax({
+      type: "GET",
+      url: serieAPI.url,
+      data: {
+        api_key: 'e98fb56b8c3a7d7884b98e6cff128fde',
+        query: query,
+        language: 'it-IT',
+        type: serieAPI.type
       },
       success: function (data) {
         var result = data.results;
-        for (var i = 0; i < result.length; i++) {
-          var thisResult = result[i];        
-          if (API.type == "Film") {
-            var context = {
-              original_title: thisResult.original_title,
-              title: thisResult.title,
-              original_language: printFlag(thisResult),
-              vote_average: printStar(thisResult),
-              type: API.type,
-              poster_path: generateImgUrl(thisResult),
-              overview: generateOverview(thisResult)
-            }
-          } else if (API.type == "Serie Tv") {
-            var context = {
-              original_title: thisResult.original_name,
-              title: thisResult.name,
-              original_language: printFlag(thisResult),
-              vote_average: printStar(thisResult),
-              type: API.type,
-              poster_path: generateImgUrl(thisResult),
-              overview: generateOverview(thisResult)
-            }
-          }
-          var html = template(context);
-          movieList.append(html);
-        }
+        print(result, serieAPI, movieList, template);
       },
-      error : function(){
-        console.error('ERROR AJAX CALL')
+      error : function () {
+        console.error('ERROR AJAX CALL');
       }
-    }) // end ajaxcall
-
+    }); // end ajax call
   } else {
     alert('Prego, inserire un valore nella ricerca');
     querySearch.focus();
-  }
+  } // end else condition
 } // end function 
 
+/**
+ * 
+ * PRINT RESULT
+ */
+function print (result, API, movieList, template){
+  for (var i = 0; i < result.length; i++) {
+    if (API.type === "Film") {
+      var context = {
+        original_title: result[i].original_title,
+        title: result[i].title,
+        original_language: printFlag(result[i]),
+        vote_average: printStar(result[i]),
+        type: API.type,
+        poster_path: generateImgUrl(result[i]),
+        overview: generateOverview(result[i])
+      }
+      console.log(context);
+    } else if (API.type === "Serie Tv") {
+      var context = {
+        original_title: result[i].original_name,
+        title: result[i].name,
+        original_language: printFlag(result[i]),
+        vote_average: printStar(result[i]),
+        type: API.type,
+        poster_path: generateImgUrl(result[i]),
+        overview: generateOverview(result[i])
+      }
+      console.log(context);
+    }
+    var html = template(context);
+    movieList.append(html);
+  } // end for 
+}
 
 /**
  * FUNZIONE CLEAN UP
@@ -135,13 +162,12 @@ function printFlag (element) {
  */
 function generateImgUrl (API) {
   var thisUrl = API.poster_path;
-  if (thisUrl !== null) {
-    var url = " https://image.tmdb.org/t/p/w342";
+  if (thisUrl) {
+    var url = "https://image.tmdb.org/t/p/w342";
     var result = url + thisUrl;
     return result
   } else {
     var url = 'img/no-poster.png';
-    console.log(url);
     return url
   }
 }
@@ -150,6 +176,7 @@ function generateImgUrl (API) {
  * FUNZIONE GENERA DESCRIZIONE
  */
 function generateOverview (API) {
+  // inserisci caso in cui non c'è descrizione fai feedback
   var overview = API.overview;
   var res = overview.substr(0, 300);
   return res

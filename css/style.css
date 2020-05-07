@@ -8,6 +8,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.app {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
 
 .flag {
   width: 20px;
