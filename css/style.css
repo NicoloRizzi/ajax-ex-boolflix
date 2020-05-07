@@ -1,3 +1,6 @@
+/* 
+GENERAL RULES
+*/
 * {
   margin: 0;
   padding: 0;
@@ -6,16 +9,70 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  background-color: black;
 }
+
+ul {
+  list-style: none;
+}
+
 
 .app {
-  max-width: 1140px;
+  max-width: 80%;
   margin: 0 auto;
+  padding: 20px 0 0 0;
 }
 
+/***************************************************************
+SECTION HEADER
+****************************************************************/
+.main-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+/***************************************************************
+SECTION SEARCH
+****************************************************************/
+.content-search {
+  display: flex;
+  align-items: center;
+}
+
+.content-search .label-search {
+  padding: 0 10px;
+}
+
+/***************************************************************
+SECTION MAIN 
+****************************************************************/
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.element {
+  display: flex;
+}
+
+/**************************************************************
+SECTION UTILITIES
+****************************************************************/
+.white-color {
+  color: white;
+}
 
 .flag {
   width: 20px;
   height: auto;
+}
+
+.fz-18 {
+  font-size: 18px;
+}
+
+.display-none {
+  display: none;
 }
 
