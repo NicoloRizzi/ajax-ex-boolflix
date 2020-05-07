@@ -176,8 +176,12 @@ function generateImgUrl (API) {
  * FUNZIONE GENERA DESCRIZIONE
  */
 function generateOverview (API) {
-  // inserisci caso in cui non c'è descrizione fai feedback
   var overview = API.overview;
-  var res = overview.substr(0, 300);
-  return res
+  if (overview) {
+    var res = overview.substr(0, 300);
+    return res 
+  } else {
+    res = "Nessuna descrizione"
+    return res
+  }
 }
