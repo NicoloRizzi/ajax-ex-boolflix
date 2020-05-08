@@ -58,7 +58,9 @@ SECTION SEARCH
 /***************************************************************
 SECTION MAIN 
 ****************************************************************/
-
+.content {
+  height: 100vh;
+}
 .movie-list {
   display: flex;
   flex-wrap: wrap;
@@ -67,13 +69,16 @@ SECTION MAIN
 .element {
   display: flex;
   padding: 8px;
+  flex-direction: column;
+}
+
+.card {
+  display: block;
 }
 
 input[type=text] {
-  font-family: 'Roboto', sans-serif;
-}
-input[type=text] {
   transition: width 0.4s ease-in-out;
+  font-family: 'Roboto', sans-serif;
 }
 
 input[type=text]:focus {
@@ -83,8 +88,6 @@ button {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
 }
-
-
 
 /**************************************************************
 SECTION UTILITIES
@@ -103,6 +106,17 @@ SECTION UTILITIES
 }
 
 .display-none {
+  display: none;
+}
+
+.display-block {
+  display: block;
+}
+.fa-star {
+  color: gold;
+}
+
+.movie-list li p {
   display: none;
 }
 

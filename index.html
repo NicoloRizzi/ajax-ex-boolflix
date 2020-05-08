@@ -36,14 +36,15 @@
   <!-- TEMPLATE-->
   <script id="movie-template" type="text/x-handlebars-template">
     <li class="element">
-      <img class="poster" src="{{poster_path}}" alt="{{title}}">
-      <p class="display-none">Titolo Originale: {{original_title}}
-        <p class="display-none">Titolo: {{title}}</p>
-        <p class="display-none"><span>Lingua Originale: </span><span>{{{original_language}}}</span></p>
-        <p class="display-none"><span>Votazione: </span><span>{{{vote_average}}}</span></p>
-        <p class="display-none">Tipo: {{ type }}</p>
-        <p class="display-none">Descrizione: {{overview}}</p>
-      </p>
+      <div class="card">
+        <img class="poster" src="{{poster_path}}" alt="{{title}}">
+        <p>Titolo Originale: {{original_title}}</p>
+        <p>Titolo: {{title}}</p>
+        <p><span>Lingua Originale: </span><span>{{{original_language}}}</span></p>
+        <p><span>Votazione: </span><span>{{{vote_average}}}</span></p>
+        <p>Tipo: {{ type }}</p>
+        <p>Descrizione: {{overview}}</p>
+      </div>
     </li>
   </script>
 </body>

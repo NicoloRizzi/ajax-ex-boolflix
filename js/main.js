@@ -9,17 +9,32 @@ $(document).ready(function () {
   var submitBtn = $('#submit');
   var querySearch = $('#search');
   var movieList = $('.movie-list');
+  var movieElement = $('li');
+  var movieImg = $('li img')
+  var movieText = $('li .card p')
 
 
   submitBtn.click(function () {
     getResults(querySearch, movieList, template);
     reset(movieList);
+    
   }); // ----- END CLICK SUBMIT
   
   querySearch.keypress(function (e) {
     if (e.which == 13) {
       getResults(querySearch, movieList, template);
       reset(movieList);
+      movieElement.hover(function () {
+          // over
+          movieImg.addClass('display-none');
+          movieText.addClass('display-block');
+        }, function () {
+          // out
+          movieText.removeClass('display-block');
+          movieImg.removeClass('display-none');
+        }
+      );
+      movieImg.addClass('.display-none')
     }
   });
 }); // ----- END DOC READY
@@ -107,7 +122,6 @@ function print (result, API, movieList, template){
         poster_path: generateImgUrl(result[i]),
         overview: generateOverview(result[i])
       }
-      console.log(context);
     }
     var html = template(context);
     movieList.append(html);
