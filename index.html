@@ -25,8 +25,8 @@
         </div>
         <div class="content-search white-color fz-18">
           <label class="label-search" for="search">Cerca un film o serie tv:</label>
-          <input type="text" id="search" placeholder="Inserisci il film">
-          <button id="submit">Invia</button>
+          <input class="input-search" type="text" id="search" placeholder="Inserisci il film">
+          <button id="submit" class="white-color">Cerca</button>
         </div>
       </header>
       <main class="content">
@@ -36,13 +36,14 @@
   <!-- TEMPLATE-->
   <script id="movie-template" type="text/x-handlebars-template">
     <li class="element">
-      <img src="{{poster_path}}" alt="{{title}}">
-      <p class="display-none">Titolo Originale: {{original_title}}</p>
-      <p class="display-none">Titolo: {{title}}</p>
-      <p class="display-none"><span>Lingua Originale: </span><span>{{{original_language}}}</span></p>
-      <p class="display-none"><span>Votazione: </span><span>{{{vote_average}}}</span></p>
-      <p class="display-none">Tipo: {{ type }}</p>
-      <p class="display-none">Descrizione: {{overview}}</p>
+      <img class="poster" src="{{poster_path}}" alt="{{title}}">
+      <p class="display-none">Titolo Originale: {{original_title}}
+        <p class="display-none">Titolo: {{title}}</p>
+        <p class="display-none"><span>Lingua Originale: </span><span>{{{original_language}}}</span></p>
+        <p class="display-none"><span>Votazione: </span><span>{{{vote_average}}}</span></p>
+        <p class="display-none">Tipo: {{ type }}</p>
+        <p class="display-none">Descrizione: {{overview}}</p>
+      </p>
     </li>
   </script>
 </body>
