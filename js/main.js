@@ -24,17 +24,6 @@ $(document).ready(function () {
     if (e.which == 13) {
       getResults(querySearch, movieList, template);
       reset(movieList);
-      movieElement.hover(function () {
-          // over
-          movieImg.addClass('display-none');
-          movieText.addClass('display-block');
-        }, function () {
-          // out
-          movieText.removeClass('display-block');
-          movieImg.removeClass('display-none');
-        }
-      );
-      movieImg.addClass('.display-none')
     }
   });
 }); // ----- END DOC READY
