@@ -9,9 +9,6 @@ $(document).ready(function () {
   var submitBtn = $('#submit');
   var querySearch = $('#search');
   var movieList = $('.movie-list');
-  var movieElement = $('li');
-  var movieImg = $('li img')
-  var movieText = $('li .card p')
 
 
   submitBtn.click(function () {

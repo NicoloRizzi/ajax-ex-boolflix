@@ -64,6 +64,7 @@ SECTION MAIN
 .movie-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .element {
@@ -80,6 +81,7 @@ SECTION MAIN
 .element:hover .details {
   display: block;
   padding: 10px;
+  cursor: pointer;
 }
 
 input[type=text] {
@@ -94,6 +96,7 @@ button {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
 }
+
 
 /**************************************************************
 SECTION UTILITIES
@@ -126,3 +129,6 @@ SECTION UTILITIES
   display: none;
 }
 
+.cp {
+  cursor: pointer;
+}
