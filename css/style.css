@@ -7,20 +7,12 @@ GENERAL RULES
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: black;
-}
-
-ul {
-  list-style: none;
-}
-
-
 .app {
   max-width: 80%;
   margin: 0 auto;
   padding: 20px 0 0 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: black;
 }
 
 /***************************************************************
@@ -64,13 +56,13 @@ SECTION MAIN
 .movie-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  list-style: none;
 }
 
 .element {
   height: 488px;
   width: 342px;
-  margin: 10px;
+  margin: 8px;
   overflow: hidden;
 }
 
@@ -80,19 +72,18 @@ SECTION MAIN
 
 .element:hover .details {
   display: block;
-  padding: 10px;
   cursor: pointer;
 }
 
-input[type=text] {
+.input-search[type=text] {
   transition: width 0.4s ease-in-out;
   font-family: 'Roboto', sans-serif;
 }
 
-input[type=text]:focus {
+.input-search[type=text]:focus {
   width: 100%;
 }
-button {
+.search-btn {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
 }
@@ -131,4 +122,8 @@ SECTION UTILITIES
 
 .cp {
   cursor: pointer;
+}
+
+.bg-color {
+  background-color: #000;
 }
